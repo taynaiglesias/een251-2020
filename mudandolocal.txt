@@ -1,0 +1,2 @@
+ls -l - Mostra o que está no diretório
+cd nome_da_pasta - Muda o diretório atual
