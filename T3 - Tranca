@@ -1,0 +1,39 @@
+Renan Rodrigues Gervatosky R.A.: 15.01419-3
+Tayna Martins Iglesias R.A.: 15.00192-0
+
+#!/user/usr/bin/env python
+
+import RPi.GPIO as GPIO
+from mfrc522 import SimpleMFRC522
+import time
+import requests
+DEVICE = "rasp"
+VARIABLE1 = "status"
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(24, GPIO.OUT)
+reader = SimpleMFRC522()
+GPIO.output(24, GPIO.LOW)
+TOKEN = "BBFF-EZAX7fhmDovbIvEQDDtDTew20piGPh"
+try:
+ text = input('Nova info: ')
+ print("tag")
+ reader.write(text)
+ print("Foi")
+ while True:
+  id, dados = reader.read()
+  dados = dados[:len(text)]
+  print('dados:', dados)
+  print('text:', text) 
+  if text == dados:
+   print('Liberado')
+   GPIO.output(24, GPIO.HIGH)
+   dados  = requests.post("http://things.ubidots.com/api/v1.6/devices/rasp",headers = {"X-Auth-Token": TOKEN,"Content-Type": "application/json"},json = {VARIABLE1: 1})
+   print(dados.text)
+   time.sleep(4)
+   GPIO.output(24, GPIO.LOW)
+   dados  = requests.post("http://things.ubidots.com/api/v1.6/devices/Rasp",headers = {"X-Auth-Token": TOKEN,"Content-Type": "application/json"},json = {VARIABLE1: 0})
+   time.sleep(5)
+  else:
+   print('ruim')
+finally:
+ GPIO.cleanup()
