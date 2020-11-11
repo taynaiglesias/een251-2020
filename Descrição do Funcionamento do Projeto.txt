@@ -1,0 +1,9 @@
+Descrição de Funcionamento do Projeto:
+
+- No primeiro acesso, o usuário deverá inserir o código para gravar na TAG, este será o validador para trancar/destrancar a porta.
+- Nos acessos seguintes, basta aproximar a TAG do leitor e a tranca (solenóide) irá recolher, permitindo a abertura da porta.
+- Temos também um indicador de ativação da tranca (solenóide), que trata-se de um LED Verde montado na protoboard.
+- Caso a TAG utilizada para abrir o portão não seja a cadastrada, o usuario terá até 3 tentativas para abrir a porta, na 4ª tentativa acionará um alarme (LED Vermelho piscante).
+- Depois de acionado o alarme uma vez, todas as proximas vezes em que o cartão não reconhecido se aproximar, ele entrará em ação.
+- Aproximando uma TAG cadastrada, o usuário irá reiniciar a quantidade de tentativas permitidas antes do alarme (3 tentativas).
+
